@@ -1,6 +1,38 @@
 @import "tailwindcss";
-/*@tailwind base;
-@tailwind components;
-@tailwind utilities;*/
 
+/* Force PrimeVue DataTable to light theme */
+.p-datatable,
+.p-datatable-table,
+.p-datatable-thead > tr > th,
+.p-datatable-tbody > tr,
+.p-datatable-tbody > tr > td,
+.p-datatable-tfoot > tr > td,
+.p-paginator {
+  background: transparent !important;
+  color: #111b17 !important;
+  border-color: #e9edef !important;
+}
 
+.p-datatable-thead > tr > th {
+  background: #f0f2f5 !important;
+  color: #667781 !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.p-datatable-tbody > tr:hover > td {
+  background: #f7faf9 !important;
+}
+
+.p-paginator {
+  background: #fff !important;
+  border-top: 1px solid #e9edef !important;
+}
+
+.p-paginator .p-paginator-page.p-highlight {
+  background: #00a884 !important;
+  color: #fff !important;
+  border-color: #00a884 !important;
+}

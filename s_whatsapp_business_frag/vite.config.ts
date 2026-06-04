@@ -137,6 +137,13 @@ export default defineConfig({
     //set..
     server: {
         //port: 5151,//5173, // Set the default port here
+        proxy: {
+            '/client/api': {
+                target: 'http://localhost:8000',
+                changeOrigin: true,
+            },
+        },
+        historyApiFallback: true,
         watch: {
           ignored: [
             //'**/src/no-hmr-file.js', // Ignore a specific file

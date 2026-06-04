@@ -20,7 +20,12 @@ let _data = {
         "type": "sample",
         "custom": {"foo":"bar"},
         "data": {
-          "data": "Hello world! ",
+          "fragment": "FragSettings",
+          "project": "ona",
+          "instance": "s_whatsapp_business_mgmt",
+          "user_id": "a27c71a5-9afa-4e5e-a567-273e1c6af539",
+          "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMjdjNzFhNS05YWZhLTRlNWUtYTU2Ny0yNzNlMWM2YWY1MzkiLCJuYW1lIjoiTml0aW4iLCJzZWN1cml0eSI6eyJwYXJ0eSI6WyJwYXJ0eV8yIl19LCJleHAiOjE3ODA1NzAyNDB9.yt4JJxxmOxKIGFr44Nndl7gVueLQG9bCiWhuKjEIaH8PdhSGqEAMnBx0oCHkhdXov0xMtDmh0r8ECUmo-vPD34SJ05erOpH7H95YqJucvS6KSIjwHhEHqm67oFmVVfvztyZ8YUFW7TGcEJlkNvAeT1d4P1FbXSR8iQIMOi6n0-ItePtuVRF17LOUfc9jOOkyUE4jkU-pXpGv3SqLJilG7LkDh3lmaBp59MU00h2O_oUNo5Ngk2YqZGID_9pJBXok7U0_jTqG65LEGqzobQvSG5l2Lq6DwWIQAFJQb9JY2BKUAj-1gWLxueZXOH_GsytPxTL3o3rkXJM_X6uW0Fdkcg",
+          "record_id": "a25c09e8-9eae-4f27-8bdb-cada50482587",
         },
       }
 

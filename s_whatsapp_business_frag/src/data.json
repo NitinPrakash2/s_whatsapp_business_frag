@@ -14,9 +14,12 @@
                 "type": "sample",
                 "slug": "sample",
                 "data": {
-                    "data": "Hello world!",
-                    "theme": "light",
-                    "foo": ""
+                    "fragment": "FragManage",
+                    "project": "ona",
+                    "instance": "your_instance_name",
+                    "user_id": "test-user-1",
+                    "access_token": "your_jwt_token",
+                    "record_id": ""
                 }
             }
         ]
