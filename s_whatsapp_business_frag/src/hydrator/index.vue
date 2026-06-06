@@ -14,6 +14,11 @@ import FragAnalytics from "./src/FragAnalytics.vue";
 import FragSetup from "./src/FragSetup.vue";
 import FragManage from "./src/FragManage.vue";
 import FragSettings from "./src/FragSettings.vue";
+import FragMetaConnect from "./src/FragMetaConnect.vue";
+import FragCatalogStatus from "./src/FragCatalogStatus.vue";
+import FragCatalogSync from "./src/FragCatalogSync.vue";
+import FragWhatsAppAutomation from "./src/FragWhatsAppAutomation.vue";
+import FragConversations from "./src/FragConversations.vue";
 
 const { _p, _pp } = defineProps<{
   _p: _p_TYP;
@@ -25,6 +30,11 @@ const fragMap: Record<string, any> = {
   FragSetup,
   FragManage,
   FragSettings,
+  FragMetaConnect,
+  FragCatalogStatus,
+  FragCatalogSync,
+  FragWhatsAppAutomation,
+  FragConversations,
 };
 
 const d = computed(() => (_pp.data.curr as any)?.data ?? {});

@@ -183,6 +183,7 @@ async function save() {
     const json = await res.json();
     if (!json?.success) throw new Error(json?.message ?? "Update failed");
     toast.add({ severity: "success", summary: "Saved!", detail: "Settings updated successfully", life: 3000 });
+    if (json?.warning) toast.add({ severity: "warn", summary: "Warning", detail: json.warning, life: 6000 });
   } catch (e: any) {
     toast.add({ severity: "error", summary: "Error", detail: e.message, life: 4000 });
   } finally { saving.value = false; }

@@ -207,6 +207,7 @@ async function saveEdit() {
     const json = await res.json();
     if (!json?.success) throw new Error(json?.message ?? "Update failed");
     toast.add({ severity: "success", summary: "Updated", detail: "Profile updated successfully", life: 3000 });
+    if (json?.warning) toast.add({ severity: "warn", summary: "Warning", detail: json.warning, life: 6000 });
     editVisible.value = false;
     await loadRecords();
   } catch (e: any) {
