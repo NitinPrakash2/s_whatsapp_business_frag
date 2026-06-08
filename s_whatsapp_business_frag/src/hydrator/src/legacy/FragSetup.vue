@@ -79,7 +79,7 @@ const form = ref({ title: "", logo: "", phone: "", category: "", description: ""
 
 const inputStyle = "background: #f0f2f5; border: 1px solid #e9edef; color: #111b17;";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "";
 const apiUrl = () => `${BASE_URL}/client/api/i/${props.project}/${props.instance}`;
 
 async function submit() {

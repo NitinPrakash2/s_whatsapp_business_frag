@@ -186,7 +186,7 @@ const replyText = ref("");
 const sending = ref(false);
 let autoRefresh: any = null;
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "";
 const apiUrl = () => `${BASE_URL}/client/api/i/${props.project}/${props.instance}`;
 const headers = () => ({ "Content-Type": "application/json", Authorization: `Bearer ${props.access_token}` });
 
@@ -299,6 +299,18 @@ async function sendMessage() {
 onMounted(() => {
   loadMessages();
   autoRefresh = setInterval(loadMessages, 15000);
+  // auto-select contact if phone passed in URL
+  const phoneFromUrl = new URLSearchParams(window.location.search).get("phone");
+  if (phoneFromUrl) {
+    // wait for contacts to load then select
+    const wait = setInterval(() => {
+      if (!loading.value && contacts.value.length > 0) {
+        clearInterval(wait);
+        const found = contacts.value.find(c => c.phone === phoneFromUrl);
+        if (found) selectContact(found);
+      }
+    }, 300);
+  }
 });
 onUnmounted(() => clearInterval(autoRefresh));
 </script>

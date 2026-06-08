@@ -168,7 +168,7 @@ const fields: Record<string, string> = { title: "Business Title", logo: "Logo UR
 const fieldsWithoutLogo: Record<string, string> = { title: "Business Title", phone: "Phone", category: "Category", description: "Description" };
 const inputStyle = "background: #f0f2f5; border: 1px solid #e9edef; color: #111b17;";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "";
 const apiUrl = () => `${BASE_URL}/client/api/i/${props.project}/${props.instance}`;
 const headers = () => ({ "Content-Type": "application/json", Authorization: `Bearer ${props.access_token}` });
 

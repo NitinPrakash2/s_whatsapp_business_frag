@@ -14,7 +14,7 @@
                 "type": "sample",
                 "slug": "sample",
                 "data": {
-                    "fragment": "FragManage",
+                    "fragment": "FragDashboard",
                     "project": "ona",
                     "instance": "your_instance_name",
                     "user_id": "test-user-1",

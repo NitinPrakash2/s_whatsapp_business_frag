@@ -10,15 +10,21 @@
 <script lang="ts" setup>
 import type { _p_TYP, _pp_TYP } from "../shared/types";
 import { computed, ref, onMounted } from "vue";
-import FragAnalytics from "./src/FragAnalytics.vue";
-import FragSetup from "./src/FragSetup.vue";
-import FragManage from "./src/FragManage.vue";
-import FragSettings from "./src/FragSettings.vue";
-import FragMetaConnect from "./src/FragMetaConnect.vue";
-import FragCatalogStatus from "./src/FragCatalogStatus.vue";
-import FragCatalogSync from "./src/FragCatalogSync.vue";
-import FragWhatsAppAutomation from "./src/FragWhatsAppAutomation.vue";
-import FragConversations from "./src/FragConversations.vue";
+// ─── Core MVP Frags ───────────────────────────────────────────────────────────
+import FragDashboard from "./src/core/FragDashboard.vue";
+import FragMetaConnect from "./src/core/FragMetaConnect.vue";
+import FragCatalogStatus from "./src/core/FragCatalogStatus.vue";
+import FragCatalogSync from "./src/core/FragCatalogSync.vue";
+import FragAnalytics from "./src/core/FragAnalytics.vue";
+import FragSettings from "./src/core/FragSettings.vue";
+
+// ─── Legacy Frags (future use) ────────────────────────────────────────────────
+import FragSetup from "./src/legacy/FragSetup.vue";
+import FragManage from "./src/legacy/FragManage.vue";
+import FragWhatsAppAutomation from "./src/legacy/FragWhatsAppAutomation.vue";
+import FragConversations from "./src/legacy/FragConversations.vue";
+import FragCustomers from "./src/legacy/FragCustomers.vue";
+import FragMessages from "./src/legacy/FragMessages.vue";
 
 const { _p, _pp } = defineProps<{
   _p: _p_TYP;
@@ -26,6 +32,7 @@ const { _p, _pp } = defineProps<{
 }>();
 
 const fragMap: Record<string, any> = {
+  FragDashboard,
   FragAnalytics,
   FragSetup,
   FragManage,
@@ -35,6 +42,8 @@ const fragMap: Record<string, any> = {
   FragCatalogSync,
   FragWhatsAppAutomation,
   FragConversations,
+  FragCustomers,
+  FragMessages,
 };
 
 const d = computed(() => (_pp.data.curr as any)?.data ?? {});
@@ -43,7 +52,7 @@ const d = computed(() => (_pp.data.curr as any)?.data ?? {});
 const getFragmentFromUrl = () => {
   const path = window.location.pathname.replace(/^\//,"").toLowerCase();
   const match = Object.keys(fragMap).find(k => k.toLowerCase() === path);
-  return match || d.value.fragment || "";
+  return match || d.value.fragment || "FragDashboard";
 };
 
 const fragment = ref(getFragmentFromUrl());

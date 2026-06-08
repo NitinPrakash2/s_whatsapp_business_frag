@@ -183,7 +183,7 @@ const toggles = [
   { key: "product_search", label: "Product Search",       sub: "Match customer message to products from product_dir" },
 ];
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "";
 const apiUrl = () => `${BASE_URL}/client/api/i/${props.project}/${props.instance}`;
 const headers = () => ({ "Content-Type": "application/json", Authorization: `Bearer ${props.access_token}` });
 
