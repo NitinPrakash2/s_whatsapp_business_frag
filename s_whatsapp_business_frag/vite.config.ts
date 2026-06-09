@@ -138,7 +138,11 @@ export default defineConfig({
     server: {
         //port: 5151,//5173, // Set the default port here
         proxy: {
-            '/client/api': {
+            '/client': {
+                target: 'http://localhost:8000',
+                changeOrigin: true,
+            },
+            '/client-public': {
                 target: 'http://localhost:8000',
                 changeOrigin: true,
             },

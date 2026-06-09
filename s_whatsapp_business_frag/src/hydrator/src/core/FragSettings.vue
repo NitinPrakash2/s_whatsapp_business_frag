@@ -109,6 +109,56 @@
       <!-- ══ LEFT COLUMN ══ -->
       <div class="space-y-5">
 
+        <!-- Card: Business Profile -->
+        <div class="rounded-2xl p-6 bg-white border border-[#e0e0e0] shadow-sm">
+          <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#f0f2f5]">
+            <div class="flex items-center gap-2">
+              <i class="pi pi-user-edit text-sm" style="color:#00a884;" />
+              <h2 class="font-bold text-sm" style="color:#111b17;">Business Profile</h2>
+            </div>
+            <button @click="saveProfile" :disabled="profileSaving"
+              class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white cursor-pointer"
+              :style="profileSaving ? 'background:#b2dfdb;' : 'background:#00a884;'">
+              <i :class="profileSaving ? 'pi pi-spin pi-spinner' : 'pi pi-save'" class="text-[10px]" />
+              {{ profileSaving ? 'Saving…' : 'Save' }}
+            </button>
+          </div>
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs font-semibold mb-1 block" style="color:#667781;">Store Name</label>
+              <input v-model="profile.title" type="text" placeholder="e.g. My Fashion Store"
+                class="w-full px-3 py-2 rounded-xl text-sm outline-none"
+                style="border:1px solid #e0e0e0; background:#f9fafb; color:#111b17;" />
+            </div>
+            <div>
+              <label class="text-xs font-semibold mb-1 block" style="color:#667781;">Description</label>
+              <textarea v-model="profile.description" rows="3" placeholder="Tell customers about your store…"
+                class="w-full px-3 py-2 rounded-xl text-sm outline-none resize-none"
+                style="border:1px solid #e0e0e0; background:#f9fafb; color:#111b17;" />
+            </div>
+            <div>
+              <label class="text-xs font-semibold mb-1 block" style="color:#667781;">Category</label>
+              <select v-model="profile.category"
+                class="w-full px-3 py-2 rounded-xl text-sm outline-none"
+                style="border:1px solid #e0e0e0; background:#f9fafb; color:#111b17;">
+                <option value="">Select category</option>
+                <option value="APPAREL">Apparel</option>
+                <option value="BEAUTY">Beauty</option>
+                <option value="FOOD">Food</option>
+                <option value="RETAIL">Retail</option>
+                <option value="SERVICES">Services</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-semibold mb-1 block" style="color:#667781;">Logo URL</label>
+              <input v-model="profile.logo_url" type="text" placeholder="https://…"
+                class="w-full px-3 py-2 rounded-xl text-sm outline-none"
+                style="border:1px solid #e0e0e0; background:#f9fafb; color:#111b17;" />
+            </div>
+          </div>
+        </div>
+
         <!-- Card: Connected Meta Account -->
         <div class="rounded-2xl p-6 bg-white border border-[#e0e0e0] shadow-sm">
           <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#f0f2f5]">
@@ -567,6 +617,9 @@ const sync = ref<SyncStatus>({
   sync_health: "unknown",
 });
 
+const profile = ref({ title: "", description: "", category: "", logo_url: "" });
+const profileSaving = ref(false);
+
 // ─── API ──────────────────────────────────────────────────────────────────────
 const apiUrl = () => `/client/api/i/${props.project}/${props.instance}`;
 const headers = () => ({
@@ -623,6 +676,35 @@ const alertStyle = computed(() => {
 });
 
 // ─── Fetchers ─────────────────────────────────────────────────────────────────
+async function fetchProfile(): Promise<void> {
+  try {
+    const json = await api("get_profile");
+    if (json?.success && json?.data) {
+      const d = json.data;
+      profile.value = {
+        title: d.title ?? d.profile?.title ?? "",
+        description: d.description ?? d.profile?.description ?? "",
+        category: d.category ?? d.profile?.category ?? "",
+        logo_url: d.logo_url ?? d.profile?.logo_url ?? "",
+      };
+    }
+  } catch { /* non-fatal */ }
+}
+
+async function saveProfile(): Promise<void> {
+  profileSaving.value = true;
+  try {
+    const json = await api("save_profile", { profile: profile.value });
+    if (json?.success) {
+      toast.add({ severity: "success", summary: "Saved!", detail: "Business profile updated.", life: 3000 });
+    } else throw new Error(json?.message ?? "Save failed");
+  } catch (e: any) {
+    toast.add({ severity: "error", summary: "Save Failed", detail: e.message, life: 3000 });
+  } finally {
+    profileSaving.value = false;
+  }
+}
+
 async function fetchCatalogDetails(): Promise<void> {
   const json = await api("catalog_details");
   if (json?.success && json?.data) {
@@ -694,8 +776,7 @@ async function refreshAll(): Promise<void> {
   globalLoading.value = true;
   errorAlert.value = null;
   try {
-    await fetchCatalogDetails();
-    await fetchSyncStatus();
+    await Promise.all([fetchCatalogDetails(), fetchSyncStatus(), fetchProfile()]);
     if (!initialLoading.value) {
       toast.add({ severity: "success", summary: "Settings Refreshed", detail: "Catalog details and sync status updated.", life: 3000 });
     }
